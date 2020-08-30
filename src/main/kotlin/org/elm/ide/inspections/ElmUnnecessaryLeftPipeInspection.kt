@@ -15,6 +15,10 @@ class ElmUnnecessaryLeftPipeInspection : ElmLocalInspection() {
     override fun visitElement(element: ElmPsiElement, holder: ProblemsHolder, isOnTheFly: Boolean) {
         if (element !is ElmOperator) return
         if (element.text != "<|") return
+
+        val binOpExpr = element.parent as? ElmBinOpExpr ?: return
+        if (binOpExpr.parts.count() != 3) return
+
         val next = element.nextSiblings.withoutWsOrComments.firstOrNull()
                 ?: return
 

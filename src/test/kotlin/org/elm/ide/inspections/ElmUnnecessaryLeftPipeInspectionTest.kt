@@ -27,6 +27,10 @@ f1 x h = h <warning descr="'<|' is redundant"><|</warning> ()
 f1 x h = h <warning descr="'<|' is redundant"><|</warning> ""
 """)
 
+    fun `test left pipe involving multiple operators is ignored currently`() = checkByText("""
+f2 x = h <| [] ++ []        
+""")
+
 
     fun `test safe delete fix available when left pipe is redundant`() = checkFixByText("Safely Delete <|",
             """
